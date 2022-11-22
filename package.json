@@ -17,7 +17,7 @@
     "buildjs": "webpack",
     "watchjs": "webpack --watch",
     "build": "npm-run-all buildcss buildjs",
-    "watch": "npm-run-all watchcss watchjs",
+    "watch": "npm-run-all -p watchcss watchjs",
     "prodjs": "webpack --mode production",
     "prod": "npm-run-all buildcss prodjs",
     "serve": "cd public && php -S localhost:8080 && echo 'Server started on http://localhost:8080'",
