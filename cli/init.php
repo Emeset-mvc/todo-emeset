@@ -1,6 +1,7 @@
 <?php
 
-require "../App/config.php";
+include "../vendor/autoload.php";
+$config = require "../App/config.php";
 
 $db = $config["sqlite"]["path"] . $config["sqlite"]["name"];
 echo "Creant la base de dades : {$db} \n";

@@ -8,12 +8,11 @@
  *
 **/
 
-namespace Daw;
-
+namespace App\Models;
 /**
  * Imatges
 */
-class UsuarisPDO
+class UsersPDO
 {
 
     private $sql;
@@ -24,12 +23,12 @@ class UsuarisPDO
      *
      * Model adaptat per PDO
      *
-     * @param \Daw\connexio $conn connexió a la base de dades
+     * @param \App\Models\Db $conn connexió a la base de dades
      *
     **/
     public function __construct($conn, $options = ['cost' => 12])
     {
-        $this->sql = $conn->getConn();
+        $this->sql = $conn;
         $this->options =  $options;
     }
 
@@ -41,7 +40,7 @@ class UsuarisPDO
      */
     public function getUser($user)
     {
-        $query = 'select codi, usuari, pass from usuaris where usuari=:user;';
+        $query = 'select id, user, pass from users where user=:user;';
         $stm = $this->sql->prepare($query);
         $result = $stm->execute([':user' => $user]);
 
@@ -65,7 +64,7 @@ class UsuarisPDO
             if (password_verify($pass, $hash)) {
                 if (password_needs_rehash($hash, PASSWORD_DEFAULT, $this->options)) {
                     $newHash = password_hash($pass, PASSWORD_DEFAULT, $this->options);
-                    $query = 'update usuaris set pass=:hash where usuari=:user;';
+                    $query = 'update users set pass=:hash where user=:user;';
                     $stm = $this->sql->prepare($query);
                     $result = $stm->execute([
                         ':user' => $user,

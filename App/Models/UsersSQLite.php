@@ -81,7 +81,7 @@ class UsersSQLite
                 $login = false;
             }
         }
-        print_r($login);
+        //print_r($login);
         return $login;
     }
 }

@@ -14,31 +14,25 @@
  *
  */
 
- use App\Controllers\HomeController;
- use Emeset\Routers\Router;
+use App\Controllers\TaskController;
+use Emeset\Contracts\Routers\Router;
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 include "../vendor/autoload.php";
-include "../App/config.php";
-
-include "../App/Middleware/auth.php";
-
-
 
 /* Creem els diferents models */
-$contenidor = new \App\Container($config);
+$contenidor = new \App\Container(__DIR__ . "/../App/config.php");
 
 $app = new \Emeset\Emeset($contenidor);
 
-
-$app->get("/", "\App\Controllers\TaskController:index", ["auth"]);
-$app->post("/", "\App\Controllers\TaskController:add", ["auth"]);
-$app->get("/done/{id}", "\App\Controllers\TaskController:delete", ["auth"]);
-$app->get("/undone/{id}", "\App\Controllers\TaskController:undelete", ["auth"]);
+$app->get("/", [TaskController::class,"index"], [[\App\Middleware\Auth::class,"auth"]]);
+$app->post("/", [TaskController::class,"add"], [[\App\Middleware\Auth::class,"auth"]]);
+$app->get("/done/{id}", [TaskController::class,"delete"], [[\App\Middleware\Auth::class,"auth"]]);
+$app->get("/undone/{id}", [TaskController::class,"undelete"], [[\App\Middleware\Auth::class,"auth"]]);
 
 $app->get("/login", "\App\Controllers\LoginController:index");
 $app->post("/login", "\App\Controllers\LoginController:login");
-$app->get("/logout", "\App\Controllers\LoginController:logout", ["auth"]);
+$app->get("/logout", "\App\Controllers\LoginController:logout", [[\App\Middleware\Auth::class,"auth"]]);
 
 $app->route(Router::DEFAULT_ROUTE, "\App\Controllers\ErrorController:error404");
 

@@ -14,6 +14,14 @@ $ npm install
 $ cd init
 $ php init.php
 ```
+o
+```sh
+$ composer install 
+$ npm install
+$ cd init
+$ php initPDO.php
+```
+
 
 Primer hem d'instal·lar les dependències del projecte amb composer.
 
@@ -26,12 +34,7 @@ Finalment, l'escript init.php inicialitza la base de dades SQLite amb les dades 
 Podem executar l'aplicació de dues maneres:
 
 ```sh
-$ cd public
-$ php -S localhost:8080
+$ npm install
+$ npm run start
 ```
 
-o
-
-```sh
-$ npm run serve
-```
