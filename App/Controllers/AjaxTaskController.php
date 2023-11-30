@@ -2,20 +2,20 @@
 
 namespace App\Controllers;
 
-class TaskController 
+class AjaxTaskController 
 {
     public function index($request, $response, $container)
     {
-        /*$model = $container->get("Tasks");
+        $model = $container->get("Tasks");
         $user = $request->get("SESSION", "user");
         $todo = $model->list($user["id"]);
         $done = $model->listDone($user["id"]);
 
         $response->set("todo", $todo);
         $response->set("done", $done);
-        $response->setSession("error", "");*/
+        $response->setSession("error", "");
 
-        $response->SetTemplate("home.php");
+        $response->setJSON();
 
         return $response;
     }
@@ -24,9 +24,12 @@ class TaskController
         $model = $container->get("Tasks");
         $tasca = $request->get(INPUT_POST, "task");
         $user = $request->get("SESSION", "user");
-        $model->add($tasca, $user["id"]);
-        $response->redirect("Location: /");
-
+        $taskId = $model->add($tasca, $user["id"]);
+        $task = $model->get($taskId);
+        //print_r($task);
+        //$response->redirect("Location: /");
+        $response->set("task", $task);
+        $response->setJSON();
         return $response;
     }
 
@@ -34,8 +37,8 @@ class TaskController
         $model = $container->get("Tasks");
         $id = $request->getParam("id");
         $model->delete($id);
-        $response->redirect("Location: /");
-
+        //$response->redirect("Location: /");
+        $response->setJSON();
         return $response;
     }
 

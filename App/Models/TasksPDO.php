@@ -45,6 +45,8 @@ class TasksPDO
     {
         $query = $this->sql->prepare('insert into tasks (task,deleted, user_id) values (:task, 0, :userId);');
         $result = $query->execute([':task' => $task, ':userId' => $userId]);
+
+        return $this->sql->lastInsertId();
     }
 
     /**
@@ -87,6 +89,19 @@ class TasksPDO
         //setcookie("tasques", json_encode($this->tasques));
     }
 
+
+    public function get($id)
+    {
+        $tasks = array();
+        $query = "select id, task from tasks where id=:id;";
+        $stm = $this->sql->prepare($query);
+        $stm->execute([":id" => $id]);
+        
+        $task = $stm->fetch(\PDO::FETCH_ASSOC);
+        //print_r($task);
+        return $task;
+    }
+
     /**
       * list:  retorna el llistat de tasques
       *
@@ -99,7 +114,7 @@ class TasksPDO
         $stm = $this->sql->prepare($query);
         $stm->execute([":user" => $user]);
         while ($task = $stm->fetch(\PDO::FETCH_ASSOC)){
-            $tasks[$task["id"]] = $task["task"];
+            $tasks[] = $task;
         }
         return $tasks;
     }

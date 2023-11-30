@@ -15,7 +15,7 @@ class LoginController
         return $response;
     }
 
-    function login($request, $response, $container) {
+    public function login($request, $response, $container) {
         $user = $request->get(INPUT_POST, "user");
         $password = $request->get(INPUT_POST, "password");
 
@@ -35,7 +35,7 @@ class LoginController
         return $response;
     }
 
-    function logout($request, $response, $container) {
+    public function logout($request, $response, $container) {
         
         $response->setSession("logged", false);
         $response->setSession("user", []);

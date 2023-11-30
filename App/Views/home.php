@@ -35,25 +35,14 @@
         <div class="text-sm font-medium text-gray-900 bg-white  border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
           <div class="block py-2 px-4 w-full text-white   border-b border-gray-200 cursor-pointer">
             <label for="task" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Afegir</label>
-            <form action="/" method="post">
+            <form action="/" method="post" id="task-add">
               <div class="relative">
                 <input type="text" id="task" name="task" class="block w-full p-3 pl-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tasca..." required>
                 <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-2 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Afegir</button>
               </div>
             </form>
           </div>
-          <ul>
-            <?php
-
-            foreach ($todo as $i => $task) {
-            ?>
-              <li>
-                <div class="relative h-16 block py-4 px-4 w-full border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white flex">
-                  <div class="block   pr-5 "><?= $task; ?></div>
-                  <a href="/done/<?= $i ?>" class="absolute right-2.5 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-1 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 ">Feta!</a>
-                </div>
-              </li>
-            <?php } ?>
+          <ul id="tasks">
 
           </ul>
 
@@ -64,29 +53,29 @@
     <div class="grid grid-cols-12 p-2">
       <div class="col-start-5 col-span-4">
         <div class="text-sm font-medium text-gray-900 bg-white  border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-          
-          <ul>
-            <?php
 
-            foreach ($done as $i => $task) {
-            ?>
-              <li>
-                <div class="relative h-16 block py-4 px-4 w-full border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white flex">
-                  <div class="block line-through  pr-5 "><?= $task; ?></div>
-                  <a href="/undone/<?= $i ?>" class="absolute right-2.5 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-1 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 ">Restaura!</a>
-                </div>
-              </li>
-            <?php } ?>
+          <ul id="finished_tasks">
+
 
           </ul>
+
+
 
         </div>
       </div>
     </div>
   </div>
-  
+
 
   <script src="/js/bundle.js"></script>
+  <div class="hidden" id="task-template">
+    <li>
+      <div class="relative h-16 block py-4 px-4 w-full border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white flex">
+        <div class="block pr-5 task-text"></div>
+        <a href="" class="task-link absolute right-2.5 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-1 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 ">Feta!</a>
+      </div>
+    </li>
+  </div>
 </body>
 
 </html>

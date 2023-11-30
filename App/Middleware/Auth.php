@@ -58,28 +58,6 @@ class Auth {
     }
 
 
-    public static function isAuth2($request, $response, $container, $next)
-    {
-
-        $user = $request->get("SESSION", "user");
-        $logged = $request->get("SESSION", "logged");
-
-        if (!isset($logged)) {
-            $user = "";
-            $logged = false;
-        }
-
-        $response->set("user", $user);
-        $response->set("logged", $logged);
-
-        
-        $response = \Emeset\Middleware::next($request, $response, $container, $next);
-        
-        return $response;
-    }
-
-
-
 }
 
 

@@ -15,11 +15,11 @@
  */
 
 use App\Controllers\TaskController;
+use App\Controllers\AjaxTaskController;
 use Emeset\Contracts\Routers\Router;
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 include "../vendor/autoload.php";
-include "../App/Middleware/test.php";
 
 /* Creem els diferents models */
 $contenidor = new \App\Container(__DIR__ . "/../App/config.php");
@@ -32,6 +32,11 @@ $app->get("/", [TaskController::class,"index"], [[\App\Middleware\Auth::class,"a
 $app->post("/", [TaskController::class,"add"], [[\App\Middleware\Auth::class,"auth"]]);
 $app->get("/done/{id}", [TaskController::class,"delete"], [[\App\Middleware\Auth::class,"auth"]]);
 $app->get("/undone/{id}", [TaskController::class,"undelete"], [[\App\Middleware\Auth::class,"auth"]]);
+
+$app->get("/tasks", [AjaxTaskController::class,"index"], [[\App\Middleware\Auth::class,"auth"]]);
+$app->post("/tasks", [AjaxTaskController::class,"add"], [[\App\Middleware\Auth::class,"auth"]]);
+$app->get("/tasks/{id}", [AjaxTaskController::class,"delete"], [[\App\Middleware\Auth::class,"auth"]]);
+
 
 $app->get("/login", "\App\Controllers\LoginController:index");
 $app->post("/login", "\App\Controllers\LoginController:login");
