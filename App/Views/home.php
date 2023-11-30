@@ -12,26 +12,13 @@
   <title>Todo APP</title>
 </head>
 
-<body>
+<body class="overflow-y-scroll">
 
-  <nav class="bg-red-500 border-gray-200 px-1 sm:px-2 py-1  dark:bg-gray-900">
-    <div class="container flex flex-wrap justify-between items-center mx-auto">
-      <a href="/" class="flex items-center">
-        <span class="self-center text-lg text-white font-semibold whitespace-nowrap dark:text-white">Todo APP</span>
-      </a>
-      <div class="md:block md:w-auto" id="navbar-default">
-        <ul class="flex flex-col p-1 mt-2   md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-          <li>
-            <a href="/logout" class=" py-2 pr-4 pl-3 text-white md:p-0 dark:text-white" aria-current="page">Tancar sessió (<?= $user["user"]; ?>)</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <?php include "navbar.php"; ?>
 
-  <div class="container mt-2">
+  <div class="container mt-2 mx-auto">
     <div class="grid grid-cols-12 p-2">
-      <div class="col-start-5 col-span-4">
+      <div class="col-start-3 col-span-6">
         <div class="text-sm font-medium text-gray-900 bg-white  border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
           <div class="block py-2 px-4 w-full text-white   border-b border-gray-200 cursor-pointer">
             <label for="task" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Afegir</label>
@@ -51,21 +38,28 @@
     </div>
 
     <div class="grid grid-cols-12 p-2">
-      <div class="col-start-5 col-span-4">
-        <div class="text-sm font-medium text-gray-900 bg-white  border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-
-          <ul id="finished_tasks">
-
-
-          </ul>
-
-
-
+      <div class="col-start-3 col-span-6">
+        <div id="accordion-flush" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-900 text-gray-900 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
+          <h2 id="accordion-flush-heading-3">
+            <button type="button" class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3" data-accordion-target="#accordion-flush-body-3" aria-expanded="false" aria-controls="accordion-flush-body-3">
+              <span>Tasques fetes</span>
+              <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5" />
+              </svg>
+            </button>
+          </h2>
+          <div id="accordion-flush-body-3" class="hidden" aria-labelledby="accordion-flush-heading-3">
+            <div class="py-5 border-b border-gray-200 dark:border-gray-700">
+              <div class="text-sm font-medium text-gray-900 bg-white  border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <ul id="finished-tasks">
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
 
   <script src="/js/bundle.js"></script>
   <div class="hidden" id="task-template">

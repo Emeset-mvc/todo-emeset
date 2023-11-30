@@ -36,6 +36,7 @@ $app->get("/undone/{id}", [TaskController::class,"undelete"], [[\App\Middleware\
 $app->get("/tasks", [AjaxTaskController::class,"index"], [[\App\Middleware\Auth::class,"auth"]]);
 $app->post("/tasks", [AjaxTaskController::class,"add"], [[\App\Middleware\Auth::class,"auth"]]);
 $app->get("/tasks/{id}", [AjaxTaskController::class,"delete"], [[\App\Middleware\Auth::class,"auth"]]);
+$app->get("/tasks/{id}/undo", [AjaxTaskController::class,"undelete"], [[\App\Middleware\Auth::class,"auth"]]);
 
 
 $app->get("/login", "\App\Controllers\LoginController:index");

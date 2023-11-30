@@ -26,8 +26,6 @@ class AjaxTaskController
         $user = $request->get("SESSION", "user");
         $taskId = $model->add($tasca, $user["id"]);
         $task = $model->get($taskId);
-        //print_r($task);
-        //$response->redirect("Location: /");
         $response->set("task", $task);
         $response->setJSON();
         return $response;
@@ -37,7 +35,6 @@ class AjaxTaskController
         $model = $container->get("Tasks");
         $id = $request->getParam("id");
         $model->delete($id);
-        //$response->redirect("Location: /");
         $response->setJSON();
         return $response;
     }
@@ -46,7 +43,7 @@ class AjaxTaskController
         $model = $container->get("Tasks");
         $id = $request->getParam("id");
         $model->restore($id);
-        $response->redirect("Location: /");
+        $response->setJSON();
 
         return $response;
     }
