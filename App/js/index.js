@@ -11,7 +11,17 @@ $(function () {
             console.log("hola");
             e.preventDefault();
             addTask();
-        });   
+        });
+        
+        $("#tasks").on("click", "a.task-link", function (e) {
+            e.preventDefault();
+            console.log("hola");
+            let id = $(e.target).data("id");
+
+            console.log(e.target);
+            console.log(id);
+            deleteTask(id);
+        });
     }
 });
 
@@ -57,15 +67,7 @@ function loadTasks() {
             //console.log(template.find("a").data());
             
         }
-        $("a.task-link").on("click", function (e) {
-            e.preventDefault();
-            console.log("hola");
-            let id = $(e.target).data("id");
 
-            console.log(e.target);
-            console.log(id);
-            deleteTask(id);
-        });
 
     });
 
