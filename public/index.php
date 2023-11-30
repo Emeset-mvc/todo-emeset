@@ -19,11 +19,14 @@ use Emeset\Contracts\Routers\Router;
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 include "../vendor/autoload.php";
+include "../App/Middleware/test.php";
 
 /* Creem els diferents models */
 $contenidor = new \App\Container(__DIR__ . "/../App/config.php");
 
 $app = new \Emeset\Emeset($contenidor);
+
+$app->middleware([\App\Middleware\Auth::class, "isAuth"]);
 
 $app->get("/", [TaskController::class,"index"], [[\App\Middleware\Auth::class,"auth"]]);
 $app->post("/", [TaskController::class,"add"], [[\App\Middleware\Auth::class,"auth"]]);
@@ -33,6 +36,9 @@ $app->get("/undone/{id}", [TaskController::class,"undelete"], [[\App\Middleware\
 $app->get("/login", "\App\Controllers\LoginController:index");
 $app->post("/login", "\App\Controllers\LoginController:login");
 $app->get("/logout", "\App\Controllers\LoginController:logout", [[\App\Middleware\Auth::class,"auth"]]);
+
+$app->get("/about", "\App\Controllers\AboutController:index");
+
 
 $app->route(Router::DEFAULT_ROUTE, "\App\Controllers\ErrorController:error404");
 
