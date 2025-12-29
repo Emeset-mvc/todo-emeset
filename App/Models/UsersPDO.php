@@ -15,21 +15,15 @@ namespace App\Models;
 class UsersPDO
 {
 
-    private $sql;
-    private $options = [];
-
     /**
      * __construct:  Crear el model tasques
      *
      * Model adaptat per PDO
      *
-     * @param \App\Models\Db $conn connexió a la base de dades
-     *
-    **/
-    public function __construct($conn, $options = ['cost' => 12])
+     * @param \App\Models\Db $sql connexió a la base de dades
+     **/
+    public function __construct(private $sql, private $options = ['cost' => 12])
     {
-        $this->sql = $conn;
-        $this->options =  $options;
     }
 
     /**
@@ -61,7 +55,7 @@ class UsersPDO
 
         if ($login) {
             $hash = $login["pass"];
-            if (password_verify($pass, $hash)) {
+            if (password_verify($pass, (string) $hash)) {
                 if (password_needs_rehash($hash, PASSWORD_DEFAULT, $this->options)) {
                     $newHash = password_hash($pass, PASSWORD_DEFAULT, $this->options);
                     $query = 'update users set pass=:hash where user=:user;';

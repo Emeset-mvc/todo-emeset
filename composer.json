@@ -22,7 +22,9 @@
         }
     },
     "require-dev": {
-        "emeset/test": "^0.1.11"
+        "emeset/test": "^0.1.11",
+        "phpstan/phpstan": "^2.1",
+        "rector/rector": "^2.3"
     },
     "scripts": {
         "test": "phpunit --testdox --colors=always"

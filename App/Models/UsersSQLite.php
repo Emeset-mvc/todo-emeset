@@ -22,7 +22,6 @@ class UsersSQLite
 
     private $sql;
     private $db = "tasks.sqlite";
-    private $options = [];
 
 
     /**
@@ -33,9 +32,8 @@ class UsersSQLite
      * @param array $config paràmetres de configurció del model
      *
     **/
-    public function __construct($config, $options = ["cost"=> 12])
+    public function __construct($config, private $options = ["cost"=> 12])
     {
-        $this->options = $options;
         $db = $config["path"] . $this->db;
         $this->sql = new \SQLite3($db);
         if (! file_exists($db)) {
@@ -68,7 +66,7 @@ class UsersSQLite
 
         if ($login !== false) {
             $hash = $login["password"];
-            if (password_verify($pass, $hash)) {
+            if (password_verify($pass, (string) $hash)) {
                 if (password_needs_rehash($hash, PASSWORD_DEFAULT, $this->options)) {
                     $newHash = password_hash($pass, PASSWORD_DEFAULT, $this->options);
                     $query = 'update usuaris set pass=:hash where usuari=:user;';

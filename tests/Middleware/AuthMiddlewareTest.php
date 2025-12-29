@@ -17,7 +17,7 @@ final class AuthMiddlewareTest extends TestCase
         $request = Request::fake(session: []); // sense logged
         $response = $this->makeResponse();
 
-        $next = function () {
+        $next = function (): void {
             $this->fail("No s'hauria d'executar el next si no està logat");
         };
 

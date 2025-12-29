@@ -12,35 +12,35 @@ class Container extends EmesetContainer {
 
         $dbType = $this->get("config")["db_type"];
         if($dbType == "PDO") {
-            $this["Tasks"] = function ($c) {
+            $this["Tasks"] = 
                 // Aqui podem inicialitzar totes les dependències del model i passar-les com a paràmetre.
-                return new \App\Models\TasksPDO($c["Db"]->getDb());
-            };
 
-            $this["Users"] = function ($c) {
-                // Aqui podem inicialitzar totes les dependències del model i passar-les com a paràmetre.
-                return new \App\Models\UsersPDO($c["Db"]->getDb());
-            };
+                (fn($c) => new \App\Models\TasksPDO($c["Db"]->getDb()));
 
-            $this["Db"] = function ($c) {
+            $this["Users"] = 
                 // Aqui podem inicialitzar totes les dependències del model i passar-les com a paràmetre.
-                return new \App\Models\Db(
-                    $c["config"]["db"]["user"],
-                    $c["config"]["db"]["pass"],
-                    $c["config"]["db"]["dbname"], 
-                    $c["config"]["db"]["host"]
-                );
-            };
+
+                (fn($c) => new \App\Models\UsersPDO($c["Db"]->getDb()));
+
+            $this["Db"] = 
+                // Aqui podem inicialitzar totes les dependències del model i passar-les com a paràmetre.
+
+                (fn($c) => new \App\Models\Db(
+                $c["config"]["db"]["user"],
+                $c["config"]["db"]["pass"],
+                $c["config"]["db"]["dbname"], 
+                $c["config"]["db"]["host"]
+            ));
         } else  {
-            $this["Tasks"] = function ($c) {
+            $this["Tasks"] = 
                 // Aqui podem inicialitzar totes les dependències del model i passar-les com a paràmetre.
-                return new \App\Models\TasksSQLite($c->get("config")["sqlite"]);
-            };
 
-            $this["Users"] = function ($c) {
+                (fn($c) => new \App\Models\TasksSQLite($c->get("config")["sqlite"]));
+
+            $this["Users"] = 
                 // Aqui podem inicialitzar totes les dependències del model i passar-les com a paràmetre.
-                return new \App\Models\UsersSQLite($c->get("config")["sqlite"]);
-            };
+
+                (fn($c) => new \App\Models\UsersSQLite($c->get("config")["sqlite"]));
         }
     }
 }

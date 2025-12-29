@@ -20,19 +20,15 @@ namespace App\Models;
 class TasksPDO
 {
 
-    private $sql;
-
     /**
      * __construct:  Crear el model tasques
      *
      * Model adaptat per PDO
      *
-     * @param \App\Models\Db $conn connexió a la base de dades
-     *
-    **/
-    public function __construct($conn)
+     * @param \App\Models\Db $sql connexió a la base de dades
+     **/
+    public function __construct(private $sql)
     {
-        $this->sql = $conn;
     }
 
     /**
@@ -94,7 +90,7 @@ class TasksPDO
     **/
     public function list($user = 1)
     {
-        $tasks = array();
+        $tasks = [];
         $query = "select id, task from tasks where deleted=0 and user_id=:user;";
         $stm = $this->sql->prepare($query);
         $stm->execute([":user" => $user]);
@@ -111,7 +107,7 @@ class TasksPDO
     **/
     public function listDone($user = 1)
     {
-        $tasks = array();
+        $tasks = [];
         $query = "select id, task from tasks where deleted=1 and user_id=:user;";
         $stm = $this->sql->prepare($query);
         $stm->execute([":user" => $user]);
