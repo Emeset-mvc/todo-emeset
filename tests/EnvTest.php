@@ -7,7 +7,7 @@ use App\Controllers\Portada;
 
 class EnvTest extends TestCase
 {
-    public function test_enviroment()
+    public function test_enviroment(): void
     {
         // ARRANGE
         $container  = $this->container;

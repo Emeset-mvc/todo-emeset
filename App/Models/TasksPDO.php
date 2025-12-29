@@ -88,7 +88,7 @@ class TasksPDO
       *
       * @return array retorna una array de strings amb les tasques pendents de fer.
     **/
-    public function list($user = 1)
+    public function list($user = 1): array
     {
         $tasks = [];
         $query = "select id, task from tasks where deleted=0 and user_id=:user;";
@@ -105,7 +105,7 @@ class TasksPDO
       *
       * @return array retorna una array de strings amb les tasques fetes.
     **/
-    public function listDone($user = 1)
+    public function listDone($user = 1): array
     {
         $tasks = [];
         $query = "select id, task from tasks where deleted=1 and user_id=:user;";
