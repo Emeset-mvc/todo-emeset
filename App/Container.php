@@ -14,20 +14,20 @@ class Container extends EmesetContainer {
         if($dbType == "PDO") {
             $this["Tasks"] = function ($c) {
                 // Aqui podem inicialitzar totes les dependències del model i passar-les com a paràmetre.
-                return new \App\Models\TasksPDO($c["db"]->getConnection());
+                return new \App\Models\TasksPDO($c["Db"]->getDb());
             };
 
             $this["Users"] = function ($c) {
                 // Aqui podem inicialitzar totes les dependències del model i passar-les com a paràmetre.
-                return new \App\Models\UsersPDO($c["db"]->getConnection());
+                return new \App\Models\UsersPDO($c["Db"]->getDb());
             };
 
-            $this["db"] = function ($c) {
+            $this["Db"] = function ($c) {
                 // Aqui podem inicialitzar totes les dependències del model i passar-les com a paràmetre.
                 return new \App\Models\Db(
                     $c["config"]["db"]["user"],
                     $c["config"]["db"]["pass"],
-                    $c["config"]["db"]["db"], 
+                    $c["config"]["db"]["dbname"], 
                     $c["config"]["db"]["host"]
                 );
             };

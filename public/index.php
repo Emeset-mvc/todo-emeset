@@ -26,20 +26,6 @@ $contenidor = new \App\Container(__DIR__ . "/../App/config.php");
 
 $app = new \Emeset\Emeset($contenidor);
 
-$app->middleware([\App\Middleware\Auth::class, "isAuth"]);
-
-$app->get("/", [TaskController::class,"index"], [[\App\Middleware\Auth::class,"auth"]]);
-$app->post("/", [TaskController::class,"add"], [[\App\Middleware\Auth::class,"auth"]]);
-$app->get("/done/{id}", [TaskController::class,"delete"], [[\App\Middleware\Auth::class,"auth"]]);
-$app->get("/undone/{id}", [TaskController::class,"undelete"], [[\App\Middleware\Auth::class,"auth"]]);
-
-$app->get("/login", "\App\Controllers\LoginController:index");
-$app->post("/login", "\App\Controllers\LoginController:login");
-$app->get("/logout", "\App\Controllers\LoginController:logout", [[\App\Middleware\Auth::class,"auth"]]);
-
-$app->get("/about", "\App\Controllers\AboutController:index");
-
-
-$app->route(Router::DEFAULT_ROUTE, "\App\Controllers\ErrorController:error404");
+include "../App/routes.php";
 
 $app->execute();

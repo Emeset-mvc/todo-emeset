@@ -1,0 +1,47 @@
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      # Si troba la variable d'entorn DB_ROOT_PASS l'utilitza, aquesta variable
+      # s'ha de definir en un fitxer .env a la mateixa carpeta on està el docker-compose.yml
+      # Si no la troba utilitza 'root_password' com a contrasenya per l'usuari root
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASS:-root_password}"
+      MYSQL_DATABASE: "${DB_NAME:-database_name}"
+      MYSQL_USER: "${DB_USER:-database_user}"
+      MYSQL_PASSWORD: "${DB_PASS:-database_password}"
+    volumes:
+      - ./Db:/docker-entrypoint-initdb.d
+      - dblinks_mysql_data:/var/lib/mysql
+    ports:
+      - '${DB_PORT:-3306}:3306'
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: "${DB_USER:-database_user}"
+      PMA_PASSWORD: "${DB_PASS:-database_password}"
+      PMA_PORT: '${DB_PORT:-3306}'
+    ports:
+      - '8080:80'
+    depends_on:
+      - mysql
+  web:
+    image: sllado1/php-dev-emeset:latest
+    restart: always
+    volumes:
+      - .:/var/www/html/
+    environment:
+      DB_ROOT_PASS: "${DB_ROOT_PASS:-root_password}"
+      DB_NAME: "${DB_NAME:-database_name}"
+      DB_USER: "${DB_USER:-database_user}"
+      DB_PASS: "${DB_PASS:-database_password}"
+      DB_HOST: '${DB_HOST:-mysql}'
+      DB_PORT: '${DB_PORT:-3306}:3306'
+    ports:
+      - '8000:80'
+    depends_on:
+      - mysql
+volumes:
+  dblinks_mysql_data:

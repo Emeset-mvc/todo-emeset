@@ -3,9 +3,9 @@
 include "../vendor/autoload.php";
 $config = require "../App/config.php";
 
-$db = $config["db"]["db"];
+$db = $config["db"]["dbname"];
 echo "Creant la base de dades : {$db} \n";
-$dsn = "mysql:dbname={$config['db']['db']};host={$config['db']['host']}";
+$dsn = "mysql:dbname={$config['db']['dbname']};host={$config['db']['host']}";
 
 $usuari = $config["db"]["user"];
 $clau = $config["db"]["pass"];
@@ -33,7 +33,7 @@ for ($i = 0; $i < 10; $i++) {
     echo "Inserint l'usuari user$i \n";
 }
 
-
+echo 1;
 $sql->query("CREATE TABLE IF NOT EXISTS tasks (
     id int(11) NOT NULL AUTO_INCREMENT,
     task text NOT NULL,
@@ -43,8 +43,11 @@ $sql->query("CREATE TABLE IF NOT EXISTS tasks (
     KEY task_owner (user_id)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
   
-  
+  echo 2;
+  $sql->exec("ALTER TABLE tasks DROP FOREIGN KEY task_owner;");
   $sql->query("ALTER TABLE tasks
-    ADD CONSTRAINT task_owner FOREIGN KEY IF NOT EXISTS (user_id) REFERENCES `users` (id) ON DELETE CASCADE ON UPDATE CASCADE;");
+        ADD CONSTRAINT task_owner
+        FOREIGN KEY (user_id) REFERENCES users (id)
+        ON DELETE CASCADE ON UPDATE CASCADE;");
 
 
