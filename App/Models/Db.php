@@ -5,9 +5,9 @@ namespace App\Models;
 
 class Db {
 
-    private $db;
+    private \PDO $db;
 
-    public function __construct($user, $password, $dbName, $host = '127.0.0.1', $port = 3306)
+    public function __construct(string $user, string $password, string $dbName, string $host = '127.0.0.1', int|string $port = 3306)
     {
         $dsn = "mysql:dbname=$dbName;host=$host;port=$port";
         try {
@@ -17,7 +17,7 @@ class Db {
         }
     }
 
-    public function getDb(){
+    public function getDb(): \PDO {
         return $this->db;
     }
 }

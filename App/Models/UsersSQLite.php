@@ -20,8 +20,8 @@ namespace App\Models;
 class UsersSQLite
 {
 
-    private $sql;
-    private $db = "tasks.sqlite";
+    private \SQLite3 $sql;
+    private string $db = "tasks.sqlite";
 
 
     /**
@@ -32,7 +32,7 @@ class UsersSQLite
      * @param array $config paràmetres de configurció del model
      *
     **/
-    public function __construct($config, private $options = ["cost"=> 12])
+    public function __construct(array $config, private array $options = ["cost"=> 12])
     {
         $db = $config["path"] . $this->db;
         $this->sql = new \SQLite3($db);
@@ -47,7 +47,7 @@ class UsersSQLite
         }
     }
 
-    public function getUser($user)
+    public function getUser(string $user): array|false
     {
         $query = 'select id, user, password from users where user=:user and deleted = 0;';
         $stm = $this->sql->prepare($query);
@@ -59,7 +59,7 @@ class UsersSQLite
         return $result->fetchArray(SQLITE3_ASSOC);
     }
 
-    public function validateUser($user, $pass)
+    public function validateUser(string $user, string $pass): array|false
     {
         
         $login = $this->getUser($user);

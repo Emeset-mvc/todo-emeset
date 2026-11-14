@@ -20,8 +20,8 @@ namespace App\Models;
 class TasksSQLite
 {
 
-    private $sql;
-    private $db = "tasks.sqlite";
+    private \SQLite3 $sql;
+    private string $db = "tasks.sqlite";
     /**
      * __construct:  Crear el model tasques
      *
@@ -30,7 +30,7 @@ class TasksSQLite
      * @param array $config paràmetres de configurció del model
      *
     **/
-    public function __construct($config)
+    public function __construct(array $config)
     {
         $db = $config["path"] . $this->db;
         $this->sql = new \SQLite3($db);
@@ -51,7 +51,7 @@ class TasksSQLite
       * @param $tasca string amb la tasca.
       *
     **/
-    public function add($tasca, $user = 1)
+    public function add(string $tasca, int|string $user = 1): void
     {
         $query = $this->sql->prepare('insert into tasks (task,deleted,user_id) values (:tasca, 0, :user);');
         $query->bindValue(':tasca', $tasca, SQLITE3_TEXT);
@@ -67,7 +67,7 @@ class TasksSQLite
       * @param $id integer identificador de la tasca que volem esborrar.
       *
     **/
-    public function delete($id)
+    public function delete(int|string $id): void
     {
         $query = $this->sql->prepare('update tasks set deleted=1 where id=:id;');
         $query->bindValue(':id', $id, SQLITE3_INTEGER);
@@ -82,7 +82,7 @@ class TasksSQLite
       * @param $id integer identificador de la tasca que volem esborrar.
       *
     **/
-    public function restore($id)
+    public function restore(int|string $id): void
     {
         $query = $this->sql->prepare('update tasks set deleted=0 where id=:id;');
         $query->bindValue(':id', $id, SQLITE3_INTEGER);
@@ -94,7 +94,7 @@ class TasksSQLite
       *
       * @return array retorna una array de strings amb les tasques pendents de fer.
     **/
-    public function list($user = 1): array
+    public function list(int|string $user = 1): array
     {
         $query = $this->sql->prepare('select id,task from tasks where deleted=0 and user_id=:user;');
         $query->bindValue(':user', $user, SQLITE3_INTEGER);
@@ -111,7 +111,7 @@ class TasksSQLite
       *
       * @return array retorna una array de strings amb les tasques fetes.
     **/
-    public function listDone($user = 1): array
+    public function listDone(int|string $user = 1): array
     {
         $query = $this->sql->prepare('select id,task from tasks where deleted=1 and user_id=:user;');
         $query->bindValue(':user', $user, SQLITE3_INTEGER);

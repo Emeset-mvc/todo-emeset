@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 class TaskController 
 {
-    public function index($request, $response, $container)
+    public function index(\Emeset\Contracts\Http\Request $request, \Emeset\Contracts\Http\Response $response, \Emeset\Contracts\Container $container): \Emeset\Contracts\Http\Response
     {
         $model = $container->get("Tasks");
         $user = $request->get("SESSION", "user");
@@ -20,7 +20,7 @@ class TaskController
         return $response;
     }
 
-    public function add($request, $response, $container){
+    public function add(\Emeset\Contracts\Http\Request $request, \Emeset\Contracts\Http\Response $response, \Emeset\Contracts\Container $container): \Emeset\Contracts\Http\Response{
         $model = $container->get("Tasks");
         $tasca = $request->get(INPUT_POST, "task");
         $user = $request->get("SESSION", "user");
@@ -30,7 +30,7 @@ class TaskController
         return $response;
     }
 
-    public function delete($request, $response, $container){
+    public function delete(\Emeset\Contracts\Http\Request $request, \Emeset\Contracts\Http\Response $response, \Emeset\Contracts\Container $container): \Emeset\Contracts\Http\Response{
         $model = $container->get("Tasks");
         $id = $request->getParam("id");
         $model->delete($id);
@@ -39,7 +39,7 @@ class TaskController
         return $response;
     }
 
-    public function undelete($request, $response, $container){
+    public function undelete(\Emeset\Contracts\Http\Request $request, \Emeset\Contracts\Http\Response $response, \Emeset\Contracts\Container $container): \Emeset\Contracts\Http\Response{
         $model = $container->get("Tasks");
         $id = $request->getParam("id");
         $model->restore($id);

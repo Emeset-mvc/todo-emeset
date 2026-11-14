@@ -27,7 +27,7 @@ class TasksPDO
      *
      * @param \App\Models\Db $sql connexió a la base de dades
      **/
-    public function __construct(private $sql)
+    public function __construct(private \PDO $sql)
     {
     }
 
@@ -37,7 +37,7 @@ class TasksPDO
       * @param $task string amb la task.
       *
     **/
-    public function add($task, $userId)
+    public function add(string $task, int|string $userId): void
     {
         $query = $this->sql->prepare('insert into tasks (task,deleted, user_id) values (:task, 0, :userId);');
         $result = $query->execute([':task' => $task, ':userId' => $userId]);
@@ -51,7 +51,7 @@ class TasksPDO
       * @param $id integer identificador de la task que volem esborrar.
       *
     **/
-    public function delete($id)
+    public function delete(int|string $id): void
     {
         $query = $this->sql->prepare('update tasks set deleted=1 where id=:id;');
         $result = $query->execute([":id" => $id]);
@@ -65,7 +65,7 @@ class TasksPDO
       * @param $id integer identificador de la task que volem esborrar.
       *
     **/
-    public function restore($id)
+    public function restore(int|string $id): void
     {
 
         //die("Restuara $id");
@@ -78,7 +78,7 @@ class TasksPDO
       * save:  guarda les tasques codificades en format json a la cookie tasques
       *
     **/
-    public function save()
+    public function save(): void
     {
         //setcookie("tasques", json_encode($this->tasques));
     }
@@ -88,7 +88,7 @@ class TasksPDO
       *
       * @return array retorna una array de strings amb les tasques pendents de fer.
     **/
-    public function list($user = 1): array
+    public function list(int|string $user = 1): array
     {
         $tasks = [];
         $query = "select id, task from tasks where deleted=0 and user_id=:user;";
@@ -105,7 +105,7 @@ class TasksPDO
       *
       * @return array retorna una array de strings amb les tasques fetes.
     **/
-    public function listDone($user = 1): array
+    public function listDone(int|string $user = 1): array
     {
         $tasks = [];
         $query = "select id, task from tasks where deleted=1 and user_id=:user;";

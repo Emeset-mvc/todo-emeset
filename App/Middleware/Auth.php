@@ -13,7 +13,7 @@ class Auth {
      * @param callable $next  següent middleware o controlador.   
      * @return \Emeset\Http\Response resposta HTTP
      */
-    public function auth($request, $response, $container, $next)
+    public function auth(\Emeset\Contracts\Http\Request $request, \Emeset\Contracts\Http\Response $response, \Emeset\Contracts\Container $container, mixed $next): \Emeset\Contracts\Http\Response
     {
 
         $user = $request->get("SESSION", "user");
@@ -38,7 +38,7 @@ class Auth {
     }
 
 
-    public function isAuth($request, $response, $container, $next)
+    public function isAuth(\Emeset\Contracts\Http\Request $request, \Emeset\Contracts\Http\Response $response, \Emeset\Contracts\Container $container, mixed $next): \Emeset\Contracts\Http\Response
     {
 
         $user = $request->get("SESSION", "user");

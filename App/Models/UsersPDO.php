@@ -22,7 +22,7 @@ class UsersPDO
      *
      * @param \App\Models\Db $sql connexió a la base de dades
      **/
-    public function __construct(private $sql, private $options = ['cost' => 12])
+    public function __construct(private \PDO $sql, private array $options = ['cost' => 12])
     {
     }
 
@@ -32,7 +32,7 @@ class UsersPDO
      * @param int $id
      * @return array imatge amb ["titol", "url"]
      */
-    public function getUser($user)
+    public function getUser(string $user): array|false
     {
         $query = 'select id, user, pass from users where user=:user;';
         $stm = $this->sql->prepare($query);
@@ -48,7 +48,7 @@ class UsersPDO
     }
 
 
-    public function validateUser($user, $pass)
+    public function validateUser(string $user, string $pass): array|false
     {
         
         $login = $this->getUser($user);
