@@ -14,7 +14,7 @@
         "source": "https://github.com/Emeset-mvc/emeset-app"
     },
     "require": {
-        "emeset/framework": "^0.4"
+        "emeset/framework": "^0.5"
     },
     "autoload": {
         "psr-4": {
@@ -22,9 +22,9 @@
         }
     },
     "require-dev": {
-        "emeset/test": "^0.1.11",
-        "phpstan/phpstan": "^2.1",
-        "rector/rector": "^2.3"
+        "emeset/test": "^0.1.14",
+        "phpstan/phpstan": "^2.2",
+        "rector/rector": "^2.4"
     },
     "scripts": {
         "test": "phpunit --testdox --colors=always"
