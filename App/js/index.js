@@ -1,4 +1,4 @@
-import jQuery from 'jquery';
+import '../css/main.css';
 
 console.log("hola");
 

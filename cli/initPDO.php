@@ -1,7 +1,7 @@
 <?php
 
-include "../vendor/autoload.php";
-$config = require "../App/config.php";
+require_once __DIR__ . "/../vendor/autoload.php";
+$config = require __DIR__ . "/../App/config.php";
 
 $db = $config["db"]["dbname"];
 echo "Creant la base de dades : {$db} \n";

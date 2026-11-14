@@ -18,14 +18,13 @@ use App\Controllers\TaskController;
 use Emeset\Contracts\Routers\Router;
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
-include "../vendor/autoload.php";
-include "../App/Middleware/test.php";
+require_once __DIR__ . "/../vendor/autoload.php";
 
 /* Creem els diferents models */
 $contenidor = new \App\Container(__DIR__ . "/../App/config.php");
 
 $app = new \Emeset\Emeset($contenidor);
 
-include "../App/routes.php";
+require __DIR__ . "/../App/routes.php";
 
 $app->execute();

@@ -4,3 +4,4 @@ node_modules
 .env
 .phpunit.cache
 coverage
+public/build

@@ -5,7 +5,7 @@ return [
     /* Path on guardarem el fitxer sqlite */
     "db_type" => Emeset\Env::get("db_type", "sqlite"), /* sqlite o mysql */
     "sqlite" => [
-        "path" => Emeset\Env::get("sqlite_path", "../"),
+        "path" => Emeset\Env::get("sqlite_path", dirname(__DIR__) . DIRECTORY_SEPARATOR),
         "name" => Emeset\Env::get("sqlite_name", "db.sqlite")
     ],
     "db" => [

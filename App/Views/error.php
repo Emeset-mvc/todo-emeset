@@ -6,29 +6,29 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/main.css">
 
   <title>Error</title>
 </head>
 
 <body>
-  <div class="container mx-auto p-10">
-    <div class="grid grid-cols-1 gap-4">
+  <div class="container py-5">
+    <div class="row">
       <div>
-        <h1 class="mb-4 text-xl text-red-700 font-extrabold tracking-tight leading-none text-gray-900 md:text-3xl lg:text-4xl dark:text-white">Alguna cosa ha anat malament!</h1>
+        <h1 class="h2 mb-4 fw-bold">Alguna cosa ha anat malament!</h1>
       </div>
     </div>
 
     <?php if (isset($error) && $error != "") { ?>
-      <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+      <div class="alert alert-danger" role="alert">
         <?= $error ?>
       </div>
     <?php } ?>
 
-    <div class="grid grid-cols-1 gap-4">
+    <div class="row">
       <div>
-        <p class="text-base">Si has arribat aquí vol dir que alguna cosa ha fallat.</p>
+        <p class="lead">Si has arribat aquí vol dir que alguna cosa ha fallat.</p>
       </div>
     </div>
 

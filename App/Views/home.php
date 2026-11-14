@@ -1,92 +1,73 @@
 <!doctype html>
-<html lang="en">
-
+<html lang="ca">
 <head>
-  <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="main.css">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/main.css">
   <title>Todo APP</title>
 </head>
-
-<body>
-
-  <nav class="bg-red-500 border-gray-200 px-1 sm:px-2 py-1  dark:bg-gray-900">
-    <div class="container flex flex-wrap justify-between items-center mx-auto">
-      <a href="/" class="flex items-center">
-        <span class="self-center text-lg text-white font-semibold whitespace-nowrap dark:text-white">Todo APP</span>
-      </a>
-      <div class="md:block md:w-auto" id="navbar-default">
-        <ul class="flex flex-col p-1 mt-2   md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-          <li>
-            <a href="/logout" class=" py-2 pr-4 pl-3 text-white md:p-0 dark:text-white" aria-current="page">Tancar sessió (<?= $user["user"]; ?>)</a>
-          </li>
-        </ul>
-      </div>
+<body class="bg-body-tertiary">
+  <nav class="navbar navbar-dark bg-danger">
+    <div class="container">
+      <a href="/" class="navbar-brand fw-semibold">Todo APP</a>
+      <a href="/logout" class="nav-link text-white">Tancar sessió (<?= $user["user"]; ?>)</a>
     </div>
   </nav>
 
-  <div class="container mt-2">
-    <div class="grid grid-cols-12 p-2">
-      <div class="col-start-5 col-span-4">
-        <div class="text-sm font-medium text-gray-900 bg-white  border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-          <div class="block py-2 px-4 w-full text-white   border-b border-gray-200 cursor-pointer">
-            <label for="task" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Afegir</label>
-            <form action="/" method="post">
-              <div class="relative">
-                <input type="text" id="task" name="task" class="block w-full p-3 pl-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tasca..." required>
-                <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-2 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Afegir</button>
-              </div>
-            </form>
+  <main class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-9 col-lg-7">
+        <header class="mb-4">
+          <h1 class="h2 fw-bold mb-1">Les teves tasques</h1>
+          <p class="text-secondary mb-0">Organitza el que tens pendent i revisa el que ja has fet.</p>
+        </header>
+        <form action="/" method="post" class="card border-0 shadow-sm mb-4">
+          <div class="card-body p-4">
+            <label for="task" class="form-label fw-semibold">Afegeix una tasca</label>
+            <div class="input-group">
+              <input type="text" id="task" name="task" class="form-control" placeholder="Què has de fer?" required>
+              <button type="submit" class="btn btn-primary">Afegir</button>
+            </div>
           </div>
-          <ul>
-            <?php
-
-            foreach ($todo as $i => $task) {
-            ?>
-              <li>
-                <div class="relative h-16 block py-4 px-4 w-full border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white flex">
-                  <div class="block   pr-5 "><?= $task; ?></div>
-                  <a href="/done/<?= $i ?>" class="absolute right-2.5 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-1 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 ">Feta!</a>
-                </div>
+        </form>
+        <section class="card border-0 shadow-sm mb-4" aria-labelledby="pending-title">
+          <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center p-4 pb-3">
+            <h2 id="pending-title" class="h5 fw-semibold mb-0">Pendents</h2>
+            <span class="badge rounded-pill text-bg-primary"><?= count($todo) ?></span>
+          </div>
+          <ul class="list-group list-group-flush rounded-bottom">
+            <?php if (empty($todo)) { ?>
+              <li class="list-group-item text-secondary px-4 py-3">No tens cap tasca pendent.</li>
+            <?php } ?>
+            <?php foreach ($todo as $i => $task) { ?>
+              <li class="list-group-item d-flex justify-content-between align-items-center gap-3 px-4 py-3">
+                <span><?= $task; ?></span>
+                <a href="/done/<?= $i ?>" class="btn btn-outline-success btn-sm flex-shrink-0">Feta!</a>
               </li>
             <?php } ?>
-
           </ul>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-12 p-2">
-      <div class="col-start-5 col-span-4">
-        <div class="text-sm font-medium text-gray-900 bg-white  border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-          
-          <ul>
-            <?php
-
-            foreach ($done as $i => $task) {
-            ?>
-              <li>
-                <div class="relative h-16 block py-4 px-4 w-full border-b border-gray-200 cursor-pointer hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white flex">
-                  <div class="block line-through  pr-5 "><?= $task; ?></div>
-                  <a href="/undone/<?= $i ?>" class="absolute right-2.5 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-1 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 ">Restaura!</a>
-                </div>
+        </section>
+        <section class="card border-0 shadow-sm" aria-labelledby="done-title">
+          <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center p-4 pb-3">
+            <h2 id="done-title" class="h5 fw-semibold mb-0">Completades</h2>
+            <span class="badge rounded-pill text-bg-secondary"><?= count($done) ?></span>
+          </div>
+          <ul class="list-group list-group-flush rounded-bottom">
+            <?php if (empty($done)) { ?>
+              <li class="list-group-item text-secondary px-4 py-3">Encara no has completat cap tasca.</li>
+            <?php } ?>
+            <?php foreach ($done as $i => $task) { ?>
+              <li class="list-group-item d-flex justify-content-between align-items-center gap-3 px-4 py-3">
+                <span class="text-secondary text-decoration-line-through"><?= $task; ?></span>
+                <a href="/undone/<?= $i ?>" class="btn btn-outline-secondary btn-sm flex-shrink-0">Restaura!</a>
               </li>
             <?php } ?>
-
           </ul>
-
-        </div>
+        </section>
       </div>
     </div>
-  </div>
-  
-
+  </main>
   <script src="/js/bundle.js"></script>
 </body>
-
 </html>
