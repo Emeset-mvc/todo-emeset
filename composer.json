@@ -22,7 +22,7 @@
         }
     },
     "require-dev": {
-        "emeset/test": "^0.1.14",
+        "emeset/test": "^0.1.15",
         "phpstan/phpstan": "^2.2",
         "rector/rector": "^2.4"
     },

@@ -21,7 +21,6 @@ class TasksSQLite
 {
 
     private \SQLite3 $sql;
-    private string $db = "tasks.sqlite";
     /**
      * __construct:  Crear el model tasques
      *
@@ -32,7 +31,7 @@ class TasksSQLite
     **/
     public function __construct(array $config)
     {
-        $db = $config["path"] . $this->db;
+        $db = rtrim($config["path"], "/\\") . DIRECTORY_SEPARATOR . $config["name"];
         $this->sql = new \SQLite3($db);
         if (! file_exists($db)) {
             die("No s'ha pogut obrir la base de dades");

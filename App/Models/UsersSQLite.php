@@ -21,7 +21,6 @@ class UsersSQLite
 {
 
     private \SQLite3 $sql;
-    private string $db = "tasks.sqlite";
 
 
     /**
@@ -34,7 +33,7 @@ class UsersSQLite
     **/
     public function __construct(array $config, private array $options = ["cost"=> 12])
     {
-        $db = $config["path"] . $this->db;
+        $db = rtrim($config["path"], "/\\") . DIRECTORY_SEPARATOR . $config["name"];
         $this->sql = new \SQLite3($db);
         if (! file_exists($db)) {
             die("No s'ha pogut obrir la base de dades");
