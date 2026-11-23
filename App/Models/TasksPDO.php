@@ -27,7 +27,7 @@ class TasksPDO
      *
      * @param \App\Models\Db $sql connexió a la base de dades
      **/
-    public function __construct(private \PDO $sql)
+    public function __construct(private readonly \PDO $sql)
     {
     }
 

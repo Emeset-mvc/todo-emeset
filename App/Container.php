@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App;
 
 use Emeset\Container as EmesetContainer;
@@ -25,7 +24,8 @@ class Container extends EmesetContainer {
                 $c["config"]["db"]["user"],
                 $c["config"]["db"]["pass"],
                 $c["config"]["db"]["dbname"], 
-                $c["config"]["db"]["host"]
+                $c["config"]["db"]["host"],
+                $c["config"]["db"]["port"],
             ));
         } else  {
             // Aqui podem inicialitzar totes les dependències del model i passar-les com a paràmetre.

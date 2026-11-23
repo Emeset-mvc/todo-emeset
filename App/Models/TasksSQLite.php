@@ -20,7 +20,7 @@ namespace App\Models;
 class TasksSQLite
 {
 
-    private \SQLite3 $sql;
+    private readonly \SQLite3 $sql;
     /**
      * __construct:  Crear el model tasques
      *

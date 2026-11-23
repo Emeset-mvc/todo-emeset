@@ -22,7 +22,7 @@ class UsersPDO
      *
      * @param \App\Models\Db $sql connexió a la base de dades
      **/
-    public function __construct(private \PDO $sql, private array $options = ['cost' => 12])
+    public function __construct(private readonly \PDO $sql, private readonly array $options = ['cost' => 12])
     {
     }
 

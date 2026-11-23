@@ -20,7 +20,7 @@ namespace App\Models;
 class UsersSQLite
 {
 
-    private \SQLite3 $sql;
+    private readonly \SQLite3 $sql;
 
 
     /**
@@ -31,7 +31,7 @@ class UsersSQLite
      * @param array $config paràmetres de configurció del model
      *
     **/
-    public function __construct(array $config, private array $options = ["cost"=> 12])
+    public function __construct(array $config, private readonly array $options = ["cost"=> 12])
     {
         $db = rtrim($config["path"], "/\\") . DIRECTORY_SEPARATOR . $config["name"];
         $this->sql = new \SQLite3($db);
